@@ -11,6 +11,8 @@ Find it on [DockerHub](https://hub.docker.com/repository/docker/monokal/tinyprox
 
 ```
 Usage:
+    sh up.sh
+    or
     docker run -d \
             --name='tinyproxy' \
             -p <Host_Port>:8888 \
