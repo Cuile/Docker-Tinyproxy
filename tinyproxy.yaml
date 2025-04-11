@@ -15,5 +15,5 @@ services:
       # - BASIC_AUTH_PASSWORD=KvBKhzMz
       - DISABLE_VIA_HEADER=Yes
       - CONNECT_PORT=on
-    # command: 'ANY'
+    command: 'ANY'
     restart: always
