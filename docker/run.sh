@@ -145,6 +145,18 @@ setTimeout() {
     fi
 }
 
+setDisableViaHeader() {
+    if [[ "${DISABLE_VIA_HEADER}" == Yes ]]; then
+        sed -i -e"s/#DisableViaHeader Yes/DisableViaHeader Yes/" $PROXY_CONF
+    fi
+}
+setConnectPort() {
+    if [[ "${CONNECT_PORT}" == on ]]; then
+        sed -i -e"s/#ConnectPort 443/ConnectPort 443/" $PROXY_CONF
+        sed -i -e"s/#ConnectPort 563/ConnectPort 563/" $PROXY_CONF
+    fi
+}
+
 startService() {
     screenOut "Starting Tinyproxy service..."
     /usr/bin/tinyproxy
@@ -179,6 +191,10 @@ setAuth
 setFilter
 # Set Timeout (if any)
 setTimeout
+# Set DisableViaHeader (if Yes)
+setDisableViaHeader
+# Set ConnectPort (if on)
+setConnectPort
 # Enable log to file
 enableLogFile
 # Start Tinyproxy

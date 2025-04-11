@@ -1,0 +1,17 @@
+name: tinyproxy
+services:
+  tinyproxy:
+    image: cuile/tinyproxy
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    container_name: tinyproxy
+    ports:
+      - "8888:8888"
+    environment:
+      - BASIC_AUTH_USER=cuile
+      - BASIC_AUTH_PASSWORD=KvBKhzMz
+      - DISABLE_VIA_HEADER=Yes
+      - CONNECT_PORT=on
+    command: 'ANY'
+    restart: always

@@ -11,12 +11,23 @@ Find it on [DockerHub](https://hub.docker.com/repository/docker/monokal/tinyprox
 
 ```
 Usage:
-    docker run -d --name='tinyproxy' -p <Host_Port>:8888 --env BASIC_AUTH_USER=<username> --env BASIC_AUTH_PASSWORD=<password> --env TIMEOUT=<timeout> monokal/tinyproxy:latest <ACL>
+    docker run -d \
+            --name='tinyproxy' \
+            -p <Host_Port>:8888 \
+            --env BASIC_AUTH_USER=<username> \
+            --env BASIC_AUTH_PASSWORD=<password> \
+            --env TIMEOUT=<timeout> \
+            --env DISABLE_VIA_HEADER=Yes \
+            --env CONNECT_PORT=on \
+            monokal/tinyproxy:latest \
+            <ACL>
 
         - Set <Host_Port> to the port you wish the proxy to be accessible from.
         - Set <ACL> to 'ANY' to allow unrestricted proxy access, or one or more space seperated IP/CIDR addresses for tighter security.
-        - Basic auth is optional.
+        - Basic_auth is optional.
         - Timeout is optional.
+        - Disable_via_header is optional.
+        - Connect_port is optional.
 
     Examples:
         docker run -d --name='tinyproxy' -p 6666:8888 monokal/tinyproxy:latest ANY
@@ -36,7 +47,14 @@ Navigating to `http://tinyproxy.stats/` while connected to the proxy will displa
 Any Tinyproxy filter setting such as FilterDefaultDeny can be set as an environment variable.  You can map a filter file on the parent file system into the container for the proxy instance to use.
 
 ```
-        docker run -d --name='tinyproxy' -p 6666:8888 -v ~/filter-on-parent.conf:/etc/tinyproxy/filter.conf  --env Filter="/etc/tinyproxy/filter.conf" --env FilterDefaultDeny=Yes  monokal/tinyproxy:latest ANY
+        docker run -d \
+                --name='tinyproxy' \
+                -p 6666:8888 \
+                -v ~/filter-on-parent.conf:/etc/tinyproxy/filter.conf \
+                --env Filter="/etc/tinyproxy/filter.conf" \
+                --env FilterDefaultDeny=Yes \
+                monokal/tinyproxy:latest \
+                ANY
 ```
 
 ### Contribute
